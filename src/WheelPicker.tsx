@@ -78,7 +78,7 @@ const WheelPicker: React.FC<Props> = ({
     const last = Math.floor(offsetY % itemHeight);
     if (last > itemHeight / 2) index++;
 
-    if (index !== selectedIndex) {
+    if (index !== selectedIndex && index > -1) {
       onChange(index);
     }
   };
@@ -88,8 +88,9 @@ const WheelPicker: React.FC<Props> = ({
    * This ensures that what the user sees as selected in the picker always corresponds to the value state.
    */
   useEffect(() => {
+    const i = selectedIndex > -1 ? selectedIndex : 0;
     flatListRef.current?.scrollToIndex({
-      index: selectedIndex,
+      index: i,
       animated: false,
     });
   }, [selectedIndex]);
